@@ -24,11 +24,3 @@ resource "aws_eip" "ip" {
 output "ip" {
   value = "${aws_eip.ip.public_ip}"
 }
-
-terraform {
-  backend "s3" {
-    bucket = "gdykeman.tfstate"
-    key = "terraform/tfstate"
-    region = "us-east-1"
-  }
-}
