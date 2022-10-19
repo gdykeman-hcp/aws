@@ -1,12 +1,11 @@
 terraform {
-  backend "remote" {
-    hostname = "app.terraform.io"
+  cloud {
     organization = "gdykeman-hashicorp"
     workspaces {
       name = "aws"
     }
   }
-} 
+}
 # terraform {
 #   backend "s3" {
 #     bucket = "gdykeman.tfstate"
