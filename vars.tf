@@ -12,19 +12,23 @@ variable "instances" {
         dev_server = {
             instance_type = "t2.small"
             ami = "ami-06640050dc3f556bb"
+            key_name = "gdykeman"
         }
         test_server = {
             instance_type = "t2.micro"
             ami = "ami-08c40ec9ead489470"
+            key_name = "gdykeman"
         }
         prod_server = {
-            instance_type = "t2.medium"
+            instance_type = "t2.small"
             ami = "ami-09d3b3274b6c5d4aa"
+            key_name = "gdykeman"
         }
-        # node4 = {
-        #     instance_type = "t2.large"
-        #     ami = "ami-06640050dc3f556bb"
-        # }
+        config_server = {
+            instance_type = "t2.medium"
+            ami = "ami-06640050dc3f556bb"
+            key_name = "gdykeman"
+        }
     }
 }
 

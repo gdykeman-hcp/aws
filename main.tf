@@ -73,6 +73,7 @@ resource "aws_instance" "nodes" {
   for_each = var.instances
   instance_type = each.value.instance_type
   ami           = each.value.ami
+  key_name = each.value.key_name
 
   tags = {
     Name = each.key
