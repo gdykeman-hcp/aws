@@ -57,7 +57,7 @@ resource "aws_instance" "nodes" {
   key_name      = each.value.key_name
 
   tags = {
-    Name = each.key
+    Name        = each.key
     Application = each.value.env
   }
 }

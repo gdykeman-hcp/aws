@@ -7,31 +7,7 @@ variable "vpc_vars" {
     rt_cidr = "0.0.0.0/0"
   }
 }
-variable "instances" {
-  default = {
-    dev_server = {
-      instance_type = "t2.small"
-      ami           = "ami-06640050dc3f556bb"
-      key_name      = "gdykeman"
-      env = "developemtn"
-    }
-    test_server = {
-      instance_type = "t2.micro"
-      ami           = "ami-08c40ec9ead489470"
-      key_name      = "gdykeman"
-    }
-    prod_server = {
-      instance_type = "t2.small"
-      ami           = "ami-09d3b3274b6c5d4aa"
-      key_name      = "gdykeman"
-    }
-    config_server = {
-      instance_type = "t2.small"
-      ami           = "ami-06640050dc3f556bb"
-      key_name      = "gdykeman"
-    }
-  }
-}
+variable "instances" {}
 
 variable "amis" {
   type = map(string)
