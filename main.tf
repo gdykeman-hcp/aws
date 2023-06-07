@@ -7,13 +7,13 @@ terraform {
   }
 }
 
-variable aws_region {
-  type = string
+variable "aws_region" {
+  type    = string
   default = "us-east-1"
 }
 
 provider "aws" {
-  region  = var.vpc_vars.region
+  region = var.vpc_vars.region
   # access_key = "${var.aws_access_key}"
   # secret_key = "${var.aws_secret_key}"
 }
@@ -24,26 +24,6 @@ resource "aws_vpc" "vpc" {
   enable_dns_hostnames = true
 }
 
-# resource "aws_security_group" "sg" {
-#   vpc_id = aws_vpc.vpc.id
-#   name   = "gdykeman-sg"
-#   dynamic "ingress" {
-#     for_each = var.rules
-#     content {
-#       from_port   = ingress.value["from_port"]
-#       to_port     = ingress.value["to_port"]
-#       protocol    = ingress.value["proto"]
-#       cidr_blocks = ingress.value["cidr_blocks"]
-#     }
-#   }
-#   egress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-# }
-# Define the public subnet
 resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.vpc_vars.subnet
@@ -64,24 +44,20 @@ resource "aws_route_table" "public_rt" {
   }
 }
 # Assign the public route table to the public subnet
-resource "aws_route_table_association" "public_rt_association" { 
+resource "aws_route_table_association" "public_rt_association" {
   subnet_id      = aws_subnet.public_subnet.id
   route_table_id = aws_route_table.public_rt.id
 }
 
+
 resource "aws_instance" "nodes" {
-  for_each = var.instances
+  for_each      = var.instances
   instance_type = each.value.instance_type
   ami           = each.value.ami
-  key_name = each.value.key_name
+  key_name      = each.value.key_name
 
   tags = {
     Name = each.key
+    Application = each.value.env
   }
 }
-
-# output "ips" {
-#   value = {
-#     for k,v in aws_instance.nodes: k => v.public_ip
-#   }
-# }
